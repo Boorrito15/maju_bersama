@@ -10,23 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_25_040102) do
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
-
+ActiveRecord::Schema[7.1].define(version: 2024_08_29_201902) do
   create_table "candidate_disabilities", force: :cascade do |t|
-    t.bigint "candidate_id", null: false
-    t.bigint "disability_id", null: false
+    t.integer "candidate_id", null: false
+    t.integer "disability_id", null: false
     t.text "details"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["candidate_id", "disability_id"], name: "index_candidate_disabilities_on_candidate_id_and_disability_id", unique: true
     t.index ["candidate_id"], name: "index_candidate_disabilities_on_candidate_id"
     t.index ["disability_id"], name: "index_candidate_disabilities_on_disability_id"
   end
 
+  create_table "candidate_languages", force: :cascade do |t|
+    t.integer "candidate_id", null: false
+    t.integer "language_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["candidate_id", "language_id"], name: "index_candidate_languages_on_candidate_id_and_language_id", unique: true
+    t.index ["candidate_id"], name: "index_candidate_languages_on_candidate_id"
+    t.index ["language_id"], name: "index_candidate_languages_on_language_id"
+  end
+
   create_table "candidate_skills", force: :cascade do |t|
-    t.bigint "candidate_id", null: false
-    t.bigint "skill_id", null: false
+    t.integer "candidate_id", null: false
+    t.integer "skill_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["candidate_id"], name: "index_candidate_skills_on_candidate_id"
@@ -34,27 +42,28 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_25_040102) do
   end
 
   create_table "candidates", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.integer "user_id", null: false
     t.string "first_name"
     t.string "last_name"
     t.string "resume"
     t.date "date_of_birth"
-    t.text "languages", default: [], array: true
+    t.text "languages"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_candidates_on_user_id"
   end
 
   create_table "disabilities", force: :cascade do |t|
-    t.string "name"
-    t.text "description"
+    t.string "name", null: false
+    t.text "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "icon"
+    t.index ["name"], name: "index_disabilities_on_name", unique: true
   end
 
   create_table "educations", force: :cascade do |t|
-    t.bigint "candidate_id", null: false
+    t.integer "candidate_id", null: false
     t.string "institution_name"
     t.string "degree"
     t.string "field_of_study"
@@ -67,7 +76,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_25_040102) do
   end
 
   create_table "employers", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.integer "user_id", null: false
     t.string "company_name"
     t.text "company_description"
     t.string "website"
@@ -78,8 +87,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_25_040102) do
   end
 
   create_table "event_registrations", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "event_id", null: false
+    t.integer "user_id", null: false
+    t.integer "event_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status"
@@ -88,7 +97,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_25_040102) do
   end
 
   create_table "events", force: :cascade do |t|
-    t.bigint "employer_id", null: false
+    t.integer "employer_id", null: false
     t.string "name"
     t.text "description"
     t.string "location"
@@ -102,7 +111,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_25_040102) do
   end
 
   create_table "experiences", force: :cascade do |t|
-    t.bigint "candidate_id", null: false
+    t.integer "candidate_id", null: false
     t.string "job_title"
     t.string "company_name"
     t.date "start_date"
@@ -114,8 +123,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_25_040102) do
   end
 
   create_table "job_applications", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "job_id", null: false
+    t.integer "user_id", null: false
+    t.integer "job_id", null: false
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -124,7 +133,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_25_040102) do
   end
 
   create_table "jobs", force: :cascade do |t|
-    t.bigint "employer_id", null: false
+    t.integer "employer_id", null: false
     t.string "title"
     t.text "description"
     t.string "location"
@@ -134,6 +143,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_25_040102) do
     t.string "status", default: "Draft"
     t.index ["employer_id"], name: "index_jobs_on_employer_id"
     t.index ["status"], name: "index_jobs_on_status"
+  end
+
+  create_table "languages", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_languages_on_name", unique: true
   end
 
   create_table "skills", force: :cascade do |t|
@@ -164,8 +180,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_25_040102) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "candidate_disabilities", "candidates"
   add_foreign_key "candidate_disabilities", "disabilities"
-  add_foreign_key "candidate_disabilities", "users", column: "candidate_id"
+  add_foreign_key "candidate_languages", "candidates"
+  add_foreign_key "candidate_languages", "languages"
   add_foreign_key "candidate_skills", "candidates"
   add_foreign_key "candidate_skills", "skills"
   add_foreign_key "candidates", "users"

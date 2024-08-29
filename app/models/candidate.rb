@@ -6,6 +6,8 @@ class Candidate < ApplicationRecord
   has_many :experiences, dependent: :destroy
   has_many :candidate_disabilities
   has_many :disabilities, through: :candidate_disabilities, source: :disability
+  has_many :candidate_languages, dependent: :destroy
+  has_many :languages, through: :candidate_languages
 
 
   validates :first_name, :last_name, presence: true
