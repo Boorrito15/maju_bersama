@@ -6,7 +6,7 @@ ruby "3.3.0"
 gem "rails", "~> 7.1.3", ">= 7.1.3.4"
 
 # Use sqlite3 as the database for Active Record
-gem 'sqlite3', '~> 2.0', '>= 2.0.4'
+gem 'sqlite3', "~> 1.4"
 
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
@@ -61,3 +61,7 @@ gem "vite_rails", "~> 3.0"
 gem "devise", "~> 4.9"
 
 gem "faker", "~> 3.4"
+
+gem "activerecord-enhancedsqlite3-adapter", "~> 0.8.0"
+
+gem "litestream", "~> 0.11.0"
