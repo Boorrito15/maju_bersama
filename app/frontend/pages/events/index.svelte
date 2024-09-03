@@ -23,9 +23,9 @@
 </script>
 
 {#if current_user.role === 'candidate'}
-  <h1 class="mx-auto my-24 text-5xl text-center">Discover the <span class="text-red-500">Best Events</span></h1>
+  <h1 class="mx-auto my-24 text-5xl text-center">Temukan <span class="text-red-500">Acara Terbaik</span></h1>
 {:else if current_user.role === 'employer'}
-  <h1 class="mx-auto my-24 text-5xl text-center">Your <span class="text-red-500">Events</span></h1>
+  <h1 class="mx-auto my-24 text-5xl text-center">Acara yang  <span class="text-red-500">Anda Selenggarakan</span></h1>
 {/if}
 
 <div class="grid grid-cols-1 gap-4">
@@ -45,7 +45,8 @@
           </div>
         </Card.Header>
         <Card.Footer class="flex justify-end pb-4 border-gray-200">
-          <Button href={`/events/${event.id}`} variant="outline" class="mr-2">More Details</Button>
+          <Button href={`/events/${event.id}`} variant="outline" class="mr-2">Detail Lebih Lanjut
+          </Button>
 
           {#if current_user.role === 'candidate'}
             <Button
@@ -55,7 +56,7 @@
               {registeredEvents[event.id] ? "Registered" : "Register"}
             </Button>
           {:else if current_user.role === 'employer'}
-            <Button href={`/events/${event.id}/edit`}>Edit Event</Button>
+            <Button href={`/events/${event.id}/edit`}>Edit Acara</Button>
           {/if}
         </Card.Footer>
       </div>

@@ -24,9 +24,10 @@
 
 
 {#if current_user.role === 'candidate'}
-  <h1 class="mx-auto my-24 text-5xl text-center">Discover the <span class="text-red-500">Best Jobs</span></h1>
+
+  <h1 class="mx-auto my-24 text-5xl text-center">Temukan <span class="text-red-500">Pekerjaan Terbaik</span></h1>
 {:else if current_user.role === 'employer'}
-  <h1 class="mx-auto my-24 text-5xl text-center">Your <span class="text-red-500">Job postings</span></h1>
+  <h1 class="mx-auto my-24 text-5xl text-center">Lowongan <span class="text-red-500">Pekerjaan Anda</span></h1>
 {/if}
 
 <div class="grid grid-cols-1 gap-4">
@@ -46,7 +47,7 @@
           </div>
         </Card.Header>
         <Card.Footer class="flex justify-end pb-4 border-gray-200">
-          <Button href={`/jobs/${job.id}`} variant="outline" class="mr-2">More Details</Button>
+          <Button href={`/jobs/${job.id}`} variant="outline" class="mr-2">Detail Lebih Lanjut</Button>
 
           {#if current_user.role === 'candidate'}
             <Button
@@ -56,7 +57,7 @@
               {appliedJobs[job.id] ? "Applied" : "Apply"}
             </Button>
           {:else if current_user.role === 'employer'}
-            <Button href={`/jobs/${job.id}/edit`}>Edit Job</Button>
+            <Button href={`/jobs/${job.id}/edit`}>Edit Perkerjaan</Button>
           {/if}
         </Card.Footer>
       </div>

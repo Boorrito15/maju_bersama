@@ -6,10 +6,10 @@
   export let ignoreStyles = false;
 
   //   // Force light mode on initial load
-  // onMount(() => {
-  //   document.documentElement.classList.remove('dark');
-  //   localStorage.setItem('theme', 'light'); // Ensure the theme is saved in local storage
-  // });
+  onMount(() => {
+    document.documentElement.classList.remove('dark');
+    localStorage.setItem('theme', 'light'); // Ensure the theme is saved in local storage
+  });
 </script>
 
 <ModeWatcher defaultMode="light" />

@@ -30,11 +30,12 @@
 </script>
 
 <div class="max-w-xl p-8 mx-auto mb-24">
-  <h1 class="mb-6 text-2xl font-bold">Create a New Event</h1>
+  <h1 class="mb-6 text-2xl font-bold">Buat Acara Baru
+  </h1>
   <form on:submit|preventDefault={submit}>
 
     <div class="mb-4">
-      <label for="name" class="block mb-2 text-sm font-medium">Title</label>
+      <label for="name" class="block mb-2 text-sm font-medium">Nama</label>
       <input
         type="text"
         bind:value={$form.name}
@@ -47,7 +48,7 @@
     </div>
 
     <div class="mb-4">
-      <label for="location" class="block mb-2 text-sm font-medium">Location</label>
+      <label for="location" class="block mb-2 text-sm font-medium">Lokasi</label>
       <input
         type="text"
         bind:value={$form.location}
@@ -60,7 +61,7 @@
     </div>
 
     <div class="mb-4">
-      <label for="description" class="block mb-2 text-sm font-medium">Description</label>
+      <label for="description" class="block mb-2 text-sm font-medium">Deskripsi</label>
       <textarea
         bind:value={$form.description}
         id="description"
@@ -72,7 +73,7 @@
     </div>
 
     <div class="mb-4">
-      <label for="start_time" class="block mb-2 text-sm font-medium">Start Time</label>
+      <label for="start_time" class="block mb-2 text-sm font-medium">Mulai</label>
       <input
         id="start_time"
         type="datetime-local"
@@ -85,7 +86,7 @@
     </div>
 
     <div class="mb-4">
-      <label for="end_time" class="block mb-2 text-sm font-medium">End Time</label>
+      <label for="end_time" class="block mb-2 text-sm font-medium">Akhir</label>
       <input
         id="end_time"
         type="datetime-local"
@@ -102,7 +103,7 @@
       disabled={$form.processing}
       class="bg-blue-500 text-white py-2 px-4 rounded-md shadow-sm hover:bg-blue-600"
     >
-      Submit
+      Buat Acara
     </button>
     <button
       type="button"
