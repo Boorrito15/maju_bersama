@@ -1,19 +1,18 @@
 default: &default
-  adapter: sqlite3
+  adapter: postgresql
+  encoding: unicode
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
 
 development:
   <<: *default
-  database: db/development.sqlite3
+  database: maju_bersama_development
 
 test:
   <<: *default
-  database: db/test.sqlite3
+  database: maju_bersama_test
 
 production:
   <<: *default
-  database: db/production.sqlite3
-  flags:
-    - "IMMEDIATE"
-  journal_mode: "WAL"
+  database: maju_bersama_production
+  username: maju_bersama
+  password: <%= ENV["MAJU_BERSAMA_DATABASE_PASSWORD"] %>
