@@ -12,7 +12,7 @@ npm install # or npm install, depending on your setup
 bundle exec rails assets:precompile
 
 # Clean up old assets (optional)
-bundle exec rails assets:clean
+# bundle exec rails assets:clean
 
 # Run database migrations (if needed)
 bundle exec rails db:migrate
