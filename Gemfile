@@ -63,6 +63,6 @@ gem "devise", "~> 4.9"
 
 gem "faker", "~> 3.4"
 
-gem "activerecord-enhancedsqlite3-adapter", "~> 0.8.0"
+# gem "activerecord-enhancedsqlite3-adapter", "~> 0.8.0"
 
-gem "litestream", "~> 0.11.0"
+# gem "litestream", "~> 0.11.0"
