@@ -47,7 +47,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_29_201902) do
     t.string "last_name"
     t.string "resume"
     t.date "date_of_birth"
-    t.text "languages"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_candidates_on_user_id"

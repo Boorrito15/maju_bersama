@@ -6,7 +6,6 @@ class CreateCandidates < ActiveRecord::Migration[7.1]
       t.string :last_name
       t.string :resume
       t.date :date_of_birth
-      t.text :languages
 
       t.timestamps
     end
