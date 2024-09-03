@@ -2,8 +2,8 @@
   import { page, Link, inertia } from '@inertiajs/svelte';
   import * as Menubar from "$lib/components/ui/menubar/index.js";
   import { Button } from "$lib/components/ui/button";
-  import Sun from "svelte-radix/Sun.svelte";
-  import Moon from "svelte-radix/Moon.svelte";
+  // import Sun from "svelte-radix/Sun.svelte";
+  // import Moon from "svelte-radix/Moon.svelte";
   import { toggleMode } from 'mode-watcher';
 
   // Assuming you get user data from a store or context
@@ -40,18 +40,22 @@
 
       {#if $page.props.auth && $page.props.auth.user}
         <Menubar.Menu>
-          <Menubar.Trigger>Jobs</Menubar.Trigger>
+          <Menubar.Trigger>Pekerjaan</Menubar.Trigger>
           <Menubar.Content>
             <Menubar.Item>
-              <Link href="/jobs">Job Listings</Link>
+              <Link href="/jobs">Daftar Pekerjaan
+              </Link>
             </Menubar.Item>
             <Menubar.Item>
-              <Link href="/job_applications">My Applications</Link>
+              <Link href="/job_applications">Lamaran Pekerjaan Saya
+
+              </Link>
             </Menubar.Item>
             {#if current_user.role === 'employer'}
               <Menubar.Separator />
               <Menubar.Item>
-                <Link href="/jobs/new">Create New Job Posting</Link>
+                <Link href="/jobs/new">Buat Daftar Pekerjaan
+                </Link>
               </Menubar.Item>
             {/if}
           </Menubar.Content>
@@ -59,18 +63,20 @@
 
         <!-- Events Menu -->
         <Menubar.Menu>
-          <Menubar.Trigger>Events</Menubar.Trigger>
+          <Menubar.Trigger>Acara</Menubar.Trigger>
           <Menubar.Content>
             <Menubar.Item>
-              <Link href="/events">Upcoming Events</Link>
+              <Link href="/events">Acara Mendatang
+              </Link>
             </Menubar.Item>
             <Menubar.Item>
-              <Link href="/event_registrations">Registered Events</Link>
+              <Link href="/event_registrations">Acara Terdaftar</Link>
             </Menubar.Item>
             {#if current_user.role === 'employer'}
               <Menubar.Separator />
               <Menubar.Item>
-                <Link href="/events/new">Host New Event</Link>
+                <Link href="/events/new">Buat Acara Baru
+                </Link>
               </Menubar.Item>
             {/if}
           </Menubar.Content>
@@ -94,10 +100,10 @@
           </Menubar.Trigger>
           <Menubar.Content>
             <Menubar.Item>
-              <Link href={profilePath}>My Profile</Link>
+              <Link href={profilePath}>Profil</Link>
             </Menubar.Item>
             <Menubar.Item>
-              <button use:inertia="{{ href: '/logout', method: 'delete' }}">Log out</button>
+            <button use:inertia="{{ href: '/logout', method: 'delete' }}">Keluar</button>
             </Menubar.Item>
           </Menubar.Content>
         </Menubar.Menu>
@@ -105,16 +111,16 @@
         <Menubar.Menu>
           <div class="flex">
             <Menubar.Item>
-              <a href="/login">Sign In</a>
+              <a href="/login">Masuk</a>
             </Menubar.Item>
             <Menubar.Item>
-              <a href="/sign_up">Sign Up</a>
+              <a href="/sign_up">Daftar</a>
             </Menubar.Item>
-            <Button on:click={toggleMode} variant="outline" size="icon">
+            <!-- <Button on:click={toggleMode} variant="outline" size="icon">
               <Sun class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
               <Moon class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
               <span class="sr-only">Toggle theme</span>
-            </Button>
+            </Button> -->
           </div>
         </Menubar.Menu>
       {/if}

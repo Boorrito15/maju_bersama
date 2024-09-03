@@ -11,7 +11,8 @@
 </script>
 
 {#if user_role === 'candidate'}
-  <h1 class="mx-auto my-24 text-5xl text-center">My <span class="text-red-500">Event Registrations</span></h1>
+  <h1 class="mx-auto my-24 text-5xl text-center">Pendaftaran
+    <span class="text-red-500">Acara Saya</span></h1>
 {:else if user_role === 'employer'}
   <h1 class="mx-auto my-24 text-5xl text-center">Event <span class="text-red-500">attendees </span></h1>
 {/if}
@@ -40,13 +41,13 @@
           </div>
         </Card.Header>
         <Card.Footer class="flex justify-end pb-4 border-gray-200">
-          <Button href={`/events/${registration.event.id}`} variant="outline" class="mr-2">Event Details</Button>
+          <Button href={`/events/${registration.event.id}`} variant="outline" class="mr-2">Detail Lebih Lanjut </Button>
 
           {#if user_role === 'employer'}
-            <Button href={`/candidates/${registration.user.candidate.id}`} class="mr-2">View Attendee</Button>
+            <Button href={`/candidates/${registration.user.candidate.id}`} class="mr-2">Lihat Peserta</Button>
           {:else if user_role === 'candidate'}
             <div class="self-center font-bold text-green-600">
-              Registered on {new Date(registration.created_at).toLocaleDateString()}
+              Terdaftar pada {new Date(registration.created_at).toLocaleDateString()}
             </div>
           {/if}
         </Card.Footer>

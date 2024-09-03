@@ -9,6 +9,8 @@ class CandidatesController < ApplicationController
 
   def edit
     @disability_options = Disability.all
+    @languages = Language.all
+    @candidate_languages = CandidateLanguage.all
   end
 
   def update

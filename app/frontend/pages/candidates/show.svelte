@@ -25,13 +25,13 @@
       <Avatar.Image src="https://github.com/shadcn.png" alt="@shadcn"/>
       <Avatar.Fallback>{candidate.first_name}</Avatar.Fallback>
     </Avatar.Root>
-    <Link href="{candidate.id}/edit">Edit profile</Link>
+    <Link href="{candidate.id}/edit">Edit profil</Link>
   </div>
   <div>
     <h2 class="mb-4 text-lg font-bold">{candidate.first_name} {candidate.last_name}</h2>
     <p class="font-light">{user.email}</p>
     <p class="font-light">{user.phone}</p>
-    <p class="font-light">{user.city}, {user.state}</p>
+    <p class="font-light">{user.city} {user.country}</p>
   </div>
 </Card>
 
@@ -43,7 +43,7 @@
 </Card>
 
 <Card class="p-6 mb-4 border-none shadow-none">
-  <h1 class="text-lg font-bold">Experience</h1>
+  <h1 class="text-lg font-bold">Pengalaman</h1>
   {#each experiences as experience, index}
     <div class="py-12 space-y-1">
       <p class="text-lg font-medium">{experience.job_title}</p>
@@ -58,7 +58,7 @@
 </Card>
 
 <Card class="p-6 mb-4 border-none shadow-none">
-  <h1 class="text-lg font-bold">Education</h1>
+  <h1 class="text-lg font-bold">Pendidikan</h1>
   {#each educations as education, index}
     <div class="py-12 space-y-1">
       <p class="text-lg font-medium">{education.institution_name}</p>
@@ -75,7 +75,7 @@
 
 {#if disability_details.length > 0}
   <Card class="p-6 mb-4 border-none shadow-none">
-    <h1 class="text-lg font-bold mb-12">Disabilities</h1>
+    <h1 class="text-lg font-bold mb-12">Disabilitas</h1>
       <div class="space-y-4">
         {#each disability_details as item, index}
           <p>{item.disability_name}</p>
@@ -89,8 +89,8 @@
 {/if}
 
 
-<Card class="p-6 mb-4 border-none shadow-none">
-  <h1 class="text-lg font-bold">Languages</h1>
+<!-- <Card class="p-6 mb-4 border-none shadow-none">
+  <h1 class="text-lg font-bold">Bahasa</h1>
   {#each candidate.languages as language, index}
     <div class="py-6 space-y-1">
       <p class="text-gray-500"> {language}</p>
@@ -99,4 +99,4 @@
       <Separator />
     {/if}
   {/each}
-</Card>
+</Card> -->

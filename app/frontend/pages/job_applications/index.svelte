@@ -11,9 +11,10 @@
 </script>
 
 {#if user_role === 'candidate'}
-  <h1 class="mx-auto my-24 text-5xl text-center">My <span class="text-red-500">Job Applications</span></h1>
+  <h1 class="mx-auto my-24 text-5xl text-center">Lamaran <span class="text-red-500">Pekerjaan Saya
+  </span></h1>
 {:else if user_role === 'employer'}
-  <h1 class="mx-auto my-24 text-5xl text-center">Incoming <span class="text-red-500">applications </span></h1>
+  <h1 class="mx-auto my-24 text-5xl text-center">Lamaran <span class="text-red-500">Pekerjaan yang Masuk </span></h1>
 {/if}
 <div class="grid grid-cols-1 gap-4">
   {#each job_applications as application}
@@ -41,14 +42,14 @@
         </Card.Header>
         <Card.Footer class="flex justify-end pb-4 border-gray-200">
 
-          <Button href={`/jobs/${application.job.id}`} variant="outline" class="mr-2">Job Listing</Button>
+          <Button href={`/jobs/${application.job.id}`} variant="outline" class="mr-2">Lihat Daftar Pekerjaan</Button>
 
           {#if user_role === 'employer'}
-            <Button href={`/candidates/${application.user.candidate.id}`} class="mr-2">View Applicant</Button>
+            <Button href={`/candidates/${application.user.candidate.id}`} class="mr-2">Lihat Kandidat</Button>
           {/if}
           {#if user_role === 'candidate'}
             <div class="self-center font-bold text-green-600">
-              Applied on {new Date(application.created_at).toLocaleDateString()}
+              Terdaftar pada {new Date(application.created_at).toLocaleDateString()}
             </div>
           {/if}
         </Card.Footer>

@@ -15,19 +15,21 @@
 
   export let candidate
   export let user
-  console.log(user)
   export let experiences = [];
   export let candidate_disabilities = [];
   export let disabilities = [];
   export let disability_details = [];
   export let disability_options = disabilities;
+  // export let languages
+  export let candidate_languages = []
+
+  let selectedLanguages = candidate_languages.map(lang => lang.id);
 
   let form = useForm({
     candidate: {
       first_name: candidate?.first_name || '',
       last_name: candidate?.last_name || '',
       date_of_birth: candidate?.date_of_birth || '',
-      languages: candidate?.languages || [],
     },
     user: {
       phone: user?.phone || '',
@@ -40,7 +42,8 @@
     },
     experiences: experiences || [],
     candidate_disabilities: candidate_disabilities || [],
-    disability_details: disability_details || []
+    disability_details: disability_details || [],
+    candidate_languages: candidate_languages || []
   });
 
   let currentStep = 0;
@@ -50,11 +53,11 @@
   let showDisabilityForm = false;
 
   const steps = [
-    { href: '#personal-info', title: 'Personal Info', description: 'Update your personal details.' },
-    { href: '#contact-info', title: 'Contact Info', description: 'Update your contact details.' },
-    { href: '#additional-info', title: 'Additional Info', description: 'Provide additional information about yourself.' },
-    { href: '#experiences', title: 'Experiences', description: 'Add and update your job experiences.' },
-    { href: '#disabilities', title: 'Disabilities', description: 'Add and update your disabilities.' }
+    { href: '#personal-info', title: 'Informasi Pribadi', description: 'Perbarui detail pribadi Anda.' },
+    { href: '#contact-info', title: 'Informasi Kontak', description: 'Perbarui detail kontak Anda.' },
+    { href: '#additional-info', title: 'Informasi Tambahan', description: 'Berikan informasi tambahan tentang diri Anda.' },
+    { href: '#experiences', title: 'Pengalaman', description: 'Tambahkan dan perbarui pengalaman kerja Anda.' },
+    { href: '#disabilities', title: 'Disabilitas', description: 'Tambahkan dan perbarui informasi mengenai disabilitas Anda.' }
   ];
 
   function handleStepChange(step: number) {
@@ -135,7 +138,7 @@
     showDisabilityForm = true;
   }
 
-  function handleSelectChange(event) {
+  function selectDisability(event) {
     editingDisability.disability_id = event.detail.value;
   }
 
@@ -176,7 +179,7 @@
             <div class="space-y-4">
               {#if currentStep === 0}
                 <div>
-                  <Label for="first_name">First Name</Label>
+                  <Label for="first_name">Nama Depan</Label>
                   <Input id="first_name" bind:value={$form.candidate.first_name} placeholder="First Name" />
                   {#if $form.errors['candidate.first_name']}
                     <div class="text-sm text-red-500">{$form.errors['candidate.first_name']}</div>
@@ -184,7 +187,7 @@
                 </div>
 
                 <div>
-                  <Label for="last_name">Last Name</Label>
+                  <Label for="last_name">Nama Belakang</Label>
                   <Input id="last_name" bind:value={$form.candidate.last_name} placeholder="Last Name" />
                   {#if $form.errors['candidate.last_name']}
                     <div class="text-sm text-red-500">{$form.errors['candidate.last_name']}</div>
@@ -192,24 +195,36 @@
                 </div>
 
                 <div>
-                  <Label for="date_of_birth">Date of Birth</Label>
+                  <Label for="date_of_birth">Tanggal Lahir</Label>
                   <Input id="date_of_birth" type="date" bind:value={$form.candidate.date_of_birth} />
                   {#if $form.errors['candidate.date_of_birth']}
                     <div class="text-sm text-red-500">{$form.errors['candidate.date_of_birth']}</div>
                   {/if}
                 </div>
 
-                <div>
-                  <Label for="languages">Languages</Label>
-                  <Input id="languages" bind:value={$form.candidate.languages} placeholder="Languages (comma separated)" />
+                <!-- <div>
+                  <label for="languages">Bahasa</label>
+                  <Select.Root on:selectedChange={selectLanguage}>
+                    <Select.Trigger class="w-[180px]">
+                      <Select.Value placeholder="Select Languages" />
+                    </Select.Trigger>
+                    <Select.Content>
+                      {#each languages as language}
+                        <Select.Item value={language.id} on:click={() => editingLanguage.language_id = language.id}>
+                          {language.name}
+                        </Select.Item>
+                      {/each}
+                    </Select.Content>
+                  </Select.Root>
+
                   {#if $form.errors['candidate.languages']}
                     <div class="text-sm text-red-500">{$form.errors['candidate.languages']}</div>
                   {/if}
-                </div>
+                </div> -->
 
               {:else if currentStep === 1}
                 <div>
-                  <Label for="phone">Phone</Label>
+                  <Label for="phone">No. Telepon</Label>
                   <Input id="phone" bind:value={$form.user.phone} placeholder="Phone" />
                   {#if $form.errors['user.phone']}
                     <div class="text-sm text-red-500">{$form.errors['user.phone']}</div>
@@ -217,7 +232,7 @@
                 </div>
 
                 <div>
-                  <Label for="address">Address</Label>
+                  <Label for="address">Alamat</Label>
                   <Input id="address" bind:value={$form.user.address} placeholder="Address" />
                   {#if $form.errors['user.address']}
                     <div class="text-sm text-red-500">{$form.errors['user.address']}</div>
@@ -225,7 +240,7 @@
                 </div>
 
                 <div>
-                  <Label for="city">City</Label>
+                  <Label for="city">Kota</Label>
                   <Input id="city" bind:value={$form.user.city} placeholder="City" />
                   {#if $form.errors['user.city']}
                     <div class="text-sm text-red-500">{$form.errors['user.city']}</div>
@@ -233,7 +248,7 @@
                 </div>
 
                 <div>
-                  <Label for="state">State</Label>
+                  <Label for="state">Provinci</Label>
                   <Input id="state" bind:value={$form.user.state} placeholder="State" />
                   {#if $form.errors['user.state']}
                     <div class="text-sm text-red-500">{$form.errors['user.state']}</div>
@@ -241,25 +256,25 @@
                 </div>
 
                 <div>
-                  <Label for="zip_code">Zip Code</Label>
+                  <Label for="zip_code">Kode Pos</Label>
                   <Input id="zip_code" bind:value={$form.user.zip_code} placeholder="Zip Code" />
                   {#if $form.errors['user.zip_code']}
                     <div class="text-sm text-red-500">{$form.errors['user.zip_code']}</div>
                   {/if}
                 </div>
 
-                <div>
+                <!-- <div>
                   <Label for="country">Country</Label>
                   <Input id="country" bind:value={$form.user.country} placeholder="Country" />
                   {#if $form.errors['user.country']}
                     <div class="text-sm text-red-500">{$form.errors['user.country']}</div>
                   {/if}
-                </div>
+                </div> -->
 
               {:else if currentStep === 2}
                 <div class="grid gap-3">
                   <Label for="bio">Bio</Label>
-                  <Textarea id="bio" bind:value={$form.user.bio} placeholder="Tell us about yourself" class="min-h-32" />
+                  <Textarea id="bio" bind:value={$form.user.bio} placeholder="Ceritakan tentang diri Anda" class="min-h-32" />
                   {#if $form.errors['user.bio']}
                     <div class="text-sm text-red-500">{$form.errors['user.bio']}</div>
                   {/if}
@@ -268,39 +283,40 @@
               {:else if currentStep === 3}
                 <div class="space-y-6">
                   {#if !showExperienceForm}
-                    <Button type="button" on:click={addExperience}>+ Add New Experience</Button>
+                    <Button type="button" on:click={addExperience}>+ Tambah Pengalaman Baru
+                    </Button>
                   {/if}
 
                   {#if showExperienceForm}
                     <div class="mb-4 p-4 border rounded-md space-y-4">
                       <div>
-                        <Label for="job_title">Job Title</Label>
-                        <Input id="job_title" bind:value={editingExperience.job_title} placeholder="Job Title" />
+                        <Label for="job_title">Judul Pekerjaan</Label>
+                        <Input id="job_title" bind:value={editingExperience.job_title} placeholder="Judul Pekerjaan" />
                       </div>
 
                       <div>
-                        <Label for="company_name">Company Name</Label>
-                        <Input id="company_name" bind:value={editingExperience.company_name} placeholder="Company Name" />
+                        <Label for="company_name">Nama Perusahaan</Label>
+                        <Input id="company_name" bind:value={editingExperience.company_name} placeholder="Nama Perusahaan" />
                       </div>
 
                       <div>
-                        <Label for="start_date">Start Date</Label>
+                        <Label for="start_date">Tanggal Mulai</Label>
                         <Input id="start_date" type="date" bind:value={editingExperience.start_date} />
                       </div>
 
                       <div>
-                        <Label for="end_date">End Date</Label>
+                        <Label for="end_date">Tanggal Akhir</Label>
                         <Input id="end_date" type="date" bind:value={editingExperience.end_date} />
                       </div>
 
                       <div>
-                        <Label for="description">Description</Label>
-                        <Textarea id="description" bind:value={editingExperience.description} placeholder="Job Description" />
+                        <Label for="description">Deskripsi</Label>
+                        <Textarea id="description" bind:value={editingExperience.description} placeholder="Deskripsi" />
                       </div>
 
                       <div class="flex justify-between">
-                        <Button type="button" on:click={saveExperience} color="blue">Save Experience</Button>
-                        <Button type="button" on:click={cancelEdit} color="gray">Cancel</Button>
+                        <Button type="button" on:click={saveExperience} color="blue">Simpan</Button>
+                        <Button type="button" on:click={cancelEdit} color="gray">Batal</Button>
                       </div>
                     </div>
                   {/if}
@@ -310,33 +326,33 @@
                       {#if editingExperience && editingExperience.id === experience.id}
                         <div class="space-y-4">
                           <div>
-                            <Label for="job_title">Job Title</Label>
-                            <Input id="job_title" bind:value={editingExperience.job_title} placeholder="Job Title" />
+                            <Label for="job_title">Judul Pekerjaan</Label>
+                            <Input id="job_title" bind:value={editingExperience.job_title} placeholder="Judul Pekerjaan" />
                           </div>
 
                           <div>
-                            <Label for="company_name">Company Name</Label>
-                            <Input id="company_name" bind:value={editingExperience.company_name} placeholder="Company Name" />
+                            <Label for="company_name">Nama Perusahaan</Label>
+                            <Input id="company_name" bind:value={editingExperience.company_name} placeholder="Nama Perusahaan" />
                           </div>
 
                           <div>
-                            <Label for="start_date">Start Date</Label>
+                            <Label for="start_date">Tanggal Mulai</Label>
                             <Input id="start_date" type="date" bind:value={editingExperience.start_date} />
                           </div>
 
                           <div>
-                            <Label for="end_date">End Date</Label>
+                            <Label for="end_date">Tanggal Akhir</Label>
                             <Input id="end_date" type="date" bind:value={editingExperience.end_date} />
                           </div>
 
                           <div>
-                            <Label for="description">Description</Label>
-                            <Textarea id="description" bind:value={editingExperience.description} placeholder="Job Description" />
+                            <Label for="description">Deskripsi</Label>
+                            <Textarea id="description" bind:value={editingExperience.description} placeholder="Deskripsi" />
                           </div>
 
                           <div class="flex justify-between">
-                            <Button type="button" on:click={cancelEdit} color="gray">Cancel</Button>
-                            <Button type="button" on:click={saveExperience} color="blue">Save Experience</Button>
+                            <Button type="button" on:click={cancelEdit} color="gray">Batal</Button>
+                            <Button type="button" on:click={saveExperience} color="blue">Simpan</Button>
                           </div>
                         </div>
                       {:else}
@@ -357,16 +373,16 @@
               {:else if currentStep === 4}
                 <div class="space-y-6">
                   {#if !showDisabilityForm}
-                    <Button type="button" on:click={addNewDisability}>+ Add New Disability</Button>
+                    <Button type="button" on:click={addNewDisability}>+ Tambah Disabilitas</Button>
                   {/if}
 
                   {#if showDisabilityForm}
                     <div class="mb-4 p-4 border rounded-md space-y-4">
                       <div>
-                        <Label for="disability_id">Disability</Label>
-                        <Select.Root on:selectedChange={handleSelectChange}>
+                        <Label for="disability_id">Disabilitas</Label>
+                        <Select.Root on:selectedChange={selectDisability}>
                           <Select.Trigger class="w-[180px]">
-                            <Select.Value placeholder="Select Disability" />
+                            <Select.Value placeholder="Pilih Disabilitas" />
                           </Select.Trigger>
                           <Select.Content>
                             {#each disability_options as disability}
@@ -379,13 +395,13 @@
                       </div>
 
                       <div>
-                        <Label for="details">Details</Label>
-                        <Textarea id="details" bind:value={editingDisability.details} placeholder="Details about the disability" />
+                        <Label for="details">Detail</Label>
+                        <Textarea id="details" bind:value={editingDisability.details} placeholder="Detail tentang disabilitas" />
                       </div>
 
                       <div class="flex justify-between">
-                        <Button type="button" on:click={saveDisability} color="blue">Save Disability</Button>
-                        <Button type="button" on:click={cancelEdit} color="gray">Cancel</Button>
+                        <Button type="button" on:click={saveDisability} color="blue">Simpan</Button>
+                        <Button type="button" on:click={cancelEdit} color="gray">Batal</Button>
                       </div>
                     </div>
                   {/if}
@@ -395,10 +411,10 @@
                       {#if editingDisability && editingDisability.id === disabilityDetail.id}
                         <div class="space-y-4">
                           <div>
-                            <Label for="disability_id">Disability</Label>
-                            <Select.Root on:selectedChange={handleSelectChange}>
+                            <Label for="disability_id">Disabilitas</Label>
+                            <Select.Root on:selectedChange={selectDisability}>
                               <Select.Trigger class="w-[180px]">
-                                <Select.Value placeholder="Select Disability" />
+                                <Select.Value placeholder="Pilih Disabilitas" />
                               </Select.Trigger>
                               <Select.Content>
                                 {#each disability_options as disability}
@@ -411,13 +427,13 @@
                           </div>
 
                           <div>
-                            <Label for="details">Details</Label>
-                            <Textarea id="details" bind:value={editingDisability.details} placeholder="Details about the disability" />
+                            <Label for="details">Detail</Label>
+                            <Textarea id="details" bind:value={editingDisability.details} placeholder="Detail tentang disabilitas" />
                           </div>
 
                           <div class="flex justify-between">
-                            <Button type="button" on:click={cancelEdit} color="gray">Cancel</Button>
-                            <Button type="button" on:click={saveDisability} color="blue">Save Disability</Button>
+                            <Button type="button" on:click={cancelEdit} color="gray">Batal</Button>
+                            <Button type="button" on:click={saveDisability} color="blue">Simpan</Button>
                           </div>
                         </div>
                       {:else}
@@ -441,10 +457,10 @@
         <Card.Footer class="px-6 py-4">
           <div class="flex justify-between w-full">
             {#if currentStep > 0}
-              <Button type="button" on:click={goToPreviousStep}>Previous</Button>
+              <Button type="button" on:click={goToPreviousStep}>Sebelumnya</Button>
             {/if}
             {#if currentStep < steps.length - 1}
-              <Button type="button" on:click={goToNextStep}>Next</Button>
+              <Button type="button" on:click={goToNextStep}>Berikutnya</Button>
             {/if}
           </div>
         </Card.Footer>
@@ -453,7 +469,7 @@
 
       <!-- Place the Save button outside the Card.Root but still inside the form -->
       <div class="mt-4 mx-auto w-full">
-        <Button class="w-full bg-green-600" type="submit" disabled={$form.processing}>Save</Button>
+        <Button class="w-full bg-green-600" type="submit" disabled={$form.processing}>Simpan</Button>
       </div>
     </form>
 
